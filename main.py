@@ -47,19 +47,17 @@ class LinuxDoBrowser:
 
     def click_topic(self):
         topics = self.page.query_selector_all("#list-area .title")
-        for topic in random.sample(topics, min(30, len(topics))):
+        for topic in random.sample(topics, min(10, len(topics))):
             with self.context.new_page() as page:
                 page.goto(HOME_URL + topic.get_attribute("href"))
                 if random.random() < 0.02:
                     self.click_like(page)
-                time.sleep(random.uniform(5, 15))
+                time.sleep(random.uniform(2, 4))
 
     def run(self):
         if not self.login():
             return
-        for _ in range(3):
-            self.click_topic()
-            time.sleep(random.uniform(30, 60))
+        self.click_topic()
         self.print_connect_info()
 
     def click_like(self, page):
